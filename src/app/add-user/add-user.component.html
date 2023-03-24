@@ -1,0 +1,29 @@
+<div class="submit-form">
+    <div *ngIf="!submitted">
+        <div class="form-group">      
+
+            <label for="uid" class="label-control">UID</label>
+            <input type="text" id="uid" name="uid" class="form-control" 
+            [(ngModel)]="user.uid"
+            >
+
+            <label for="name" class="label-control">Nome</label>
+            <input type="text" id="name" name="name" class="form-control" 
+            [(ngModel)]="user.displayName"
+            >
+
+            <label for="email" class="label-control">E-mail</label>
+            <input type="text" id="email" name="email" class="form-control"
+            [(ngModel)]="user.email"
+            >           
+
+            
+            <button class="btn btn-primary mt-3" (click)="adicionarUsuario()"> Cadastrar </button>
+        </div>
+    </div>
+
+    <div *ngIf="submitted">
+        <h4>Enviado com sucesso </h4>
+        <button class="btn btn-success" (click)="newUser()">Adicionar</button>
+    </div>
+</div>
