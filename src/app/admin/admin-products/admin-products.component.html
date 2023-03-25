@@ -1,25 +1,77 @@
 <p> 
     <a routerLink="/admin/products/new" class="btn btn-primary"> Novo Produto </a>
 </p>
-<p>
+<!-- <p>
     <input 
         #query
         (keyup)="filter(query.value)" 
         type="text" placeholder="pesquisar..." class="form-control">
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Preço</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of filteredProducts">
-            <td> {{ p.title }}</td>
-            <td> {{ p.price }}</td>            
-            <td> <a [routerLink]="['./', p.id]">Editar</a> </td>
-        </tr>
-    </tbody>
-</table>
+</p> -->
+<div class="card mb-5">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <input 
+                (keyup)="filter(query.value)"
+                #query type="text" placeholder="pesquisar..." class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ngx-datatable 
+    #table class="material" 
+    sort-active 
+    [rows]="filteredProducts" 
+    [limit]="3"
+    rowHeight="auto"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    > 
+
+    <ngx-datatable-column name="Título" prop="title">
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Preço" prop="price">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+        let-value="value">
+            {{ value | currency:'BRL' }}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Editar" prop="id">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <a class="nav-link" [routerLink]="['./', value]"> Editar </a>
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-footer>
+        <ng-template
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-selectedCount="selectedCount"
+            let-curPage="curPage"
+            let-offset="offset"
+            ngx-datatable-footer-template
+        >
+            <div class="page-count">
+            Mostrando: {{curPage}} até {{pageSize}} de {{rowCount}} entradas
+        </div>
+            <datatable-pager
+                [pagerLeftArrowIcon]="'datatable-icon-left'"
+                [pagerRightArrowIcon]="'datatable-icon-right'"
+                [pagerPreviousIcon]="'datatable-icon-prev'"
+                [pagerNextIcon]="'datatable-icon-skip'"
+                [page]="curPage"
+                [size]="pageSize"
+                [count]="rowCount"
+                [hidden]="!((rowCount / pageSize) > 1)"
+                (change)="table.onFooterPage($event)">
+            >
+
+            </datatable-pager>
+        </ng-template>
+    </ngx-datatable-footer>
+</ngx-datatable>

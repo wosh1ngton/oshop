@@ -23,6 +23,8 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AddUserComponent } from './add-user/add-user.component';
 import { FormsModule } from '@angular/forms';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule,
+    NgbModule,      
+    NgxDatatableModule,  
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
@@ -62,7 +65,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,

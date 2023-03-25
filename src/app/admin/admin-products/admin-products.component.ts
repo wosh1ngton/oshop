@@ -1,4 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/product.service';
@@ -8,12 +9,16 @@ import { ProductService } from 'src/app/product.service';
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
-export class AdminProductsComponent implements OnDestroy {
- 
+export class AdminProductsComponent implements OnDestroy, OnInit {
+  
+  // @Output() page: EventEmitter<any> = new EventEmitter();
   products: Product[];
   filteredProducts: any[];
   subscription: Subscription;
-  constructor(private productsService: ProductService) {
+  columns = [{ prop: 'title' }, { name: 'price' }, { name: 'id' }]; 
+ 
+  constructor(private productsService: ProductService, private router: Router) {
+    
     this.subscription = this.productsService.getAll().snapshotChanges()
       .pipe(map((res => res.map(r =>
         ({ 
@@ -26,6 +31,9 @@ export class AdminProductsComponent implements OnDestroy {
       )))).subscribe(res => this.products = this.filteredProducts =  res)
     
   }
+  ngOnInit(): void {
+    
+  }
   
   filter(query: string) {    
     this.filteredProducts = (query) ? 
@@ -36,4 +44,7 @@ export class AdminProductsComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  
+  
 }
