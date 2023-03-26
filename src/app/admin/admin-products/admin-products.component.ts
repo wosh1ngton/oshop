@@ -11,11 +11,9 @@ import { ProductService } from 'src/app/product.service';
 })
 export class AdminProductsComponent implements OnDestroy, OnInit {
   
-  // @Output() page: EventEmitter<any> = new EventEmitter();
   products: Product[];
   filteredProducts: any[];
-  subscription: Subscription;
-  columns = [{ prop: 'title' }, { name: 'price' }, { name: 'id' }]; 
+  subscription: Subscription; 
  
   constructor(private productsService: ProductService, private router: Router) {
     

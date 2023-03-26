@@ -55,6 +55,7 @@ export class AuthService {
   async GoogleAuth() {
     await this.AuthLogin(new auth.GoogleAuthProvider());
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    console.log('passo aqui sim')
     localStorage.setItem('returnUrl', returnUrl);    
     
     setTimeout(() => {   
@@ -89,22 +90,25 @@ export class AuthService {
   //método assíncrono - não executa na ordem natural
   async canActivateAdmin(): Promise<boolean> {
 
-    let uid = this.userData.uid;    
+    let json = JSON.parse(localStorage.getItem('user'));    
+    
     //variável espera ser preenchida para rodar as próximas instruções
-    const user = await lastValueFrom(this.userService.get(uid));
+    const user = await lastValueFrom(this.userService.get(json.uid));    
     if(!user.get('isAdmin')) this.router.navigate(['login']);
     return user.get('isAdmin');   
     
   }
 
-  async canActivate(state: RouterStateSnapshot): Promise<boolean> {
-    
-    let checkLogin = await lastValueFrom(of(this.userData));
-      
-    if (!checkLogin) {
+  async canActivate(state: RouterStateSnapshot): Promise<boolean> {    
+  
+    let user = localStorage.getItem('user');
+    if (user === null) {           
       this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+      console.log('passou aqui e não devia')
       return false;
     }
+    localStorage.removeItem('returnUrl');
+    console.log('aí sim')
     return true;
   }
 
