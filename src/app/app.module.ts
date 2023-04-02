@@ -27,6 +27,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 
 
 @NgModule({
@@ -44,7 +47,10 @@ import { ProductCardComponent } from './product-card/product-card.component';
     AddUserComponent,
     ProductFormComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +66,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
       { path: 'add-user', component: AddUserComponent },
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [authGuard] },
       { path: 'check-out', component: CheckOutComponent, canActivate: [authGuard] },
-      { path: 'order-success', component: OrderSuccessComponent, canActivate: [authGuard]},
+      { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [authGuard]},
       { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [authGuard, authGuardAdmin] },
       { path: 'admin/products/new', component: ProductFormComponent, canActivate: [authGuard, authGuardAdmin] },
       { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [authGuard, authGuardAdmin] },

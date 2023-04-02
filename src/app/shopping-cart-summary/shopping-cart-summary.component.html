@@ -1,0 +1,18 @@
+<div class="card-body">
+    <h5 class="card-title" style="font-size:x-large;"> Resumo do Pedido</h5>
+    <p class="card-text"> Você tem {{ cart.totalItemsCount }} itens em seu carrinho </p>
+    <ul class="list-group  list-group-flush">
+        <li class="list-group-item" *ngFor="let item of cart.items"> 
+            {{ item.quantity }} x {{ item.titel }}
+            <div class="float-end">
+                {{ item.totalPrice | currency:'BRL'}}
+            </div>
+        </li>
+        <li class="list-group-item">
+            Total
+            <div class="float-end">
+                {{ cart.totalPrice | currency:'BRL' }}
+            </div>
+        </li>
+    </ul>
+</div>

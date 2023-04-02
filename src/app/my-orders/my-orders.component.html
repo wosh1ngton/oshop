@@ -1,1 +1,17 @@
-<p>my-orders works!</p>
+<h1> Pedidos </h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente </th>
+            <th>Data </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of orders$ | async">
+            <td> {{ item.shipping.name }} </td>
+            <td> {{ item.datePlaced | date: 'dd/MM/yyyy' }}</td>
+            <td> </td>
+        </tr>
+    </tbody>
+</table>

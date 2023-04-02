@@ -4,4 +4,10 @@
 .card-footer {
     padding: 0;
 }
-
+img {
+    height: 300px; 
+    object-fit: cover;
+}
+.card-footer button {
+    cursor: pointer;
+}

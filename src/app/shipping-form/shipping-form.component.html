@@ -1,0 +1,28 @@
+<form #f="ngForm"> 
+    <div>
+        <label for="name" class="form-label">Nome</label>
+        <input #name="ngModel" [(ngModel)]="shipping.name" type="text" name="name" class="form-control">
+        <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+            <div *ngIf="name.errors?.['required']"> Nome é obrigatório </div>
+        </div>
+    </div>
+    <div>
+        <label for="address" class="form-label">Endereço</label>
+        <input #address="ngModel" [(ngModel)]="shipping.address" type="text" name="address" class="form-control">
+        <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+            <div *ngIf="address.errors?.['required']"> Endereço é obrigatório </div>
+        </div>
+    </div>   
+    <div>
+        <label for="city" class="form-label">Cidade</label>
+        <input #city="ngModel" [(ngModel)]="shipping.city" type="text" name="city" class="form-control">
+        <div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+            <div *ngIf="city.errors?.['required']"> Cidade é obrigatório </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <button 
+        [disabled]="!f.valid"
+        class="btn btn-primary" (click)="placeOrder()"> Fazer Pedido </button>
+    </div>   
+</form>

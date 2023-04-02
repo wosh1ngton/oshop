@@ -46,8 +46,10 @@ export class AuthService {
   }
 
   get dataUser() : Observable<DataUser> { 
+
+    let json = JSON.parse(localStorage.getItem('user'));         
     //realiza o mapeamento do firebaseObject para um DataUser 
-    return this.userService.get(this.userData.uid).pipe(map(
+    return this.userService.get(json.uid).pipe(map(
       (payload) =>  payload.data()
     ));  
   }
@@ -102,13 +104,12 @@ export class AuthService {
   async canActivate(state: RouterStateSnapshot): Promise<boolean> {    
   
     let user = localStorage.getItem('user');
-    if (user === null) {           
-      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-      console.log('passou aqui e não devia')
+    
+    if (user === 'null') {          
+      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });      
       return false;
-    }
+    }    
     localStorage.removeItem('returnUrl');
-    console.log('aí sim')
     return true;
   }
 
