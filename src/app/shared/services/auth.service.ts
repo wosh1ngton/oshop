@@ -3,11 +3,11 @@ import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore'
-import { AppUser } from './user';
-import { UserService } from 'src/app/user.service';
+import { AppUser } from '../models/user';
+import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'firebase/auth';
 import { lastValueFrom, map, Observable, of, switchMap } from 'rxjs';
-import { DataUser } from 'src/app/models/data-user';
+import { DataUser } from 'src/app/shared/models/data-user';
 
 
 @Injectable({

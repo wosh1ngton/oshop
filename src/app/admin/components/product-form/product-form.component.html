@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-6">
+        <form #f="ngForm" (ngSubmit)="save(f.value)">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input 
+                #title="ngModel" 
+                [(ngModel)]="product.title" name="title" type="text" id="title"
+                    class="form-control" required>
+                <div class="alert alert-danger" *ngIf="title.touched && title.invalid"> Título obrigatório </div>
+            </div>
+            <div class="form-group">
+                <label for="price">Preço</label>
+                <div class="input-group">
+                    <span class="input-group-text">R$</span>
+                    <input #price="ngModel" [(ngModel)]="product.price" name="price" type="number" id="price"
+                        class="form-control" required min="0">
+                </div>
+                <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                    <div *ngIf="price.errors?.['required']">Preço é obrigatório</div>
+                    <div *ngIf="price.errors?.['min']">Preço deve ser maior que zero</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="category">Categoria</label>
+                <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category"
+                    class="form-control" required>
+                    <option value=""></option>
+                    <option *ngFor="let c of categories$ | async" [value]="c.id"> {{ c.title }} </option>
+                </select>
+
+                <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+                    Categoria é obrigatória
+                </div>
+            </div>
+            <div class="form-group"><label for="imageUrl">Imagem</label>
+                <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" type="text" id="imageUrl"
+                    class="form-control" required
+                    pattern="(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?">
+                <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+                    <div *ngIf="imageUrl.errors?.['pattern']">Informe uma URL válida</div>
+                    <div *ngIf="imageUrl.errors?.['required']"> URL é obrigatória</div>
+                </div>
+            </div>
+            <div class="form-group mt-3">                
+                <button class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-danger" (click)="delete()">Excluir</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+       <app-product-card [product]="product" [showActions]="false"></app-product-card>
+    </div>
+</div>
